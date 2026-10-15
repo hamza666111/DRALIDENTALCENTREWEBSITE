@@ -4,7 +4,7 @@ React 19, TypeScript, Vite 8 and Tailwind 4. The existing content/config, origin
 
 ## Run
 
-The separate clinic admin workspace and its secure Cloudflare setup are documented in [ADMIN.md](ADMIN.md).
+The separate, local admin panel design preview is documented in [ADMIN.md](ADMIN.md).
 
 Use Node 22.12+ or Node 24 and npm:
 

@@ -1,8 +1,8 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "types": ["node", "@cloudflare/workers-types"],
+    "types": ["node"],
     "lib": ["ES2022", "DOM", "DOM.Iterable"]
   },
-  "include": ["admin", "worker", "vite.admin.config.ts"]
+  "include": ["admin", "vite.admin.config.ts"]
 }
