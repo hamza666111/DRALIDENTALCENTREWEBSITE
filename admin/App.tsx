@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react"
+import { BlogManager, ServiceManager, TeamManager } from "./ContentManager"
 
-type Tab = "overview" | "enquiries" | "videos"
+type Tab = "overview" | "enquiries" | "videos" | "blogs" | "services" | "team"
 type Status = "new" | "in_progress" | "closed"
 type Enquiry = {
   id: string
@@ -20,6 +21,14 @@ const examples: Enquiry[] = [
   { id: "example-2", kind: "international", name: "Example enquiry B", email: "example-b@example.com", phone: "000 000 000", details: [["Country", "Example country"], ["Visit type", "Online consultation"]], status: "in_progress", created: "2026-10-14T10:00:00Z" },
   { id: "example-3", kind: "appointment", name: "Example enquiry C", email: "example-c@example.com", phone: "000 000 000", details: [["Treatment", "Not sure yet"]], status: "closed", created: "2026-10-13T10:00:00Z" },
 ]
+const tabLabels: Record<Tab, string> = {
+  overview: "Overview",
+  enquiries: "Enquiries",
+  videos: "Video drafts",
+  blogs: "Blogs",
+  services: "Services",
+  team: "Team",
+}
 
 function date(value: string) {
   return new Date(value).toLocaleString("en-PK", { timeZone: "Asia/Karachi", dateStyle: "medium", timeStyle: "short" })
@@ -60,13 +69,16 @@ export default function App() {
         <button className={tab === "overview" ? "active" : ""} onClick={() => setTab("overview")}><span aria-hidden="true">▦</span> Overview</button>
         <button className={tab === "enquiries" ? "active" : ""} onClick={() => setTab("enquiries")}><span aria-hidden="true">✉</span> Enquiries <em>{newCount}</em></button>
         <button className={tab === "videos" ? "active" : ""} onClick={() => setTab("videos")}><span aria-hidden="true">▷</span> Video drafts</button>
+        <button className={tab === "blogs" ? "active" : ""} onClick={() => setTab("blogs")}><span aria-hidden="true">≡</span> Blogs</button>
+        <button className={tab === "services" ? "active" : ""} onClick={() => setTab("services")}><span aria-hidden="true">✦</span> Services</button>
+        <button className={tab === "team" ? "active" : ""} onClick={() => setTab("team")}><span aria-hidden="true">♙</span> Team</button>
       </nav>
       <div className="sidebar-foot"><span className="secure-dot" /> Design preview<small>No sign-in or real records yet</small></div>
     </aside>
     <main className="content">
-      <header className="topbar"><div><span className="eyebrow">CLINIC OPERATIONS</span><span className="topbar-separator">/</span><span>{tab === "overview" ? "Overview" : tab === "enquiries" ? "Enquiries" : "Video drafts"}</span></div><div className="account">Preview mode<span className="avatar">DA</span></div></header>
+      <header className="topbar"><div><span className="eyebrow">CLINIC OPERATIONS</span><span className="topbar-separator">/</span><span>{tabLabels[tab]}</span></div><div className="account">Preview mode<span className="avatar">DA</span></div></header>
       <div className="page">
-        <div className="setup-note preview-banner" role="status"><span className="note-icon">i</span><div><strong>Admin design preview</strong><p>All enquiries below are examples. Video drafts and changes exist only in this browser session. No patient data, password, or login is stored here.</p></div></div>
+        <div className="setup-note preview-banner" role="status"><span className="note-icon">i</span><div><strong>Admin design preview</strong><p>Enquiries are examples. Content editors start with current website text, but every change stays in this browser session. Nothing is published or stored.</p></div></div>
         {tab === "overview" && <>
           <div className="intro"><span className="eyebrow">YOUR DAILY VIEW</span><h1>Good to have you here.</h1><p>A first look at how clinic enquiries and videos could be managed.</p></div>
           <div className="stats"><article><span>Example enquiries</span><strong>{enquiries.length}</strong><small>Preview records only</small></article><article><span>Needs attention</span><strong>{newCount}</strong><small>Example requests marked new</small></article><article><span>Session drafts</span><strong>{drafts.length}</strong><small>Cleared when you reload</small></article></div>
@@ -81,6 +93,9 @@ export default function App() {
           <div className="intro"><span className="eyebrow">CONTENT LIBRARY</span><h1>Video drafts</h1><p>Preview how the clinic could prepare video titles and descriptions.</p></div>
           <div className="video-layout"><section className="panel"><div className="panel-head"><div><span className="eyebrow">SESSION PREVIEW</span><h2>Drafts</h2></div><span className="count">{drafts.length} drafts</span></div>{drafts.length ? <div className="draft-list">{drafts.map((item) => <article key={item.id}><div className="draft-icon">▷</div><div><span className="label">{item.category}</span><h3>{item.title}</h3><p>{item.summary || "No summary added."}</p><small>Created {date(item.created)}</small></div><button className="delete" onClick={() => deleteDraft(item.id)} aria-label={`Delete ${item.title}`}>Delete</button></article>)}</div> : <Empty title="No drafts in this session" body="Create one to preview the design. It will disappear when you reload." />}</section><section className="panel form-panel"><span className="eyebrow">NEW DRAFT</span><h2>Prepare a video</h2><p>This form is a design preview. Nothing is uploaded or saved.</p><form onSubmit={createDraft}><label>Video title<input required maxLength={160} value={title} onChange={(e) => setTitle(e.target.value)} placeholder="e.g. Meet our dental team" /></label><label>Category<select value={category} onChange={(e) => setCategory(e.target.value)}>{categories.map((option) => <option key={option}>{option}</option>)}</select></label><label>Short summary<textarea maxLength={1000} rows={5} value={description} onChange={(e) => setDescription(e.target.value)} placeholder="What will patients learn from this video?" /></label><button className="primary" type="submit">Preview draft</button></form><p className="form-hint">Drafts stay in memory only and do not appear on the website.</p></section></div>
         </>}
+        <section hidden={tab !== "blogs"}><BlogManager /></section>
+        <section hidden={tab !== "services"}><ServiceManager /></section>
+        <section hidden={tab !== "team"}><TeamManager /></section>
       </div>
     </main>
   </div>

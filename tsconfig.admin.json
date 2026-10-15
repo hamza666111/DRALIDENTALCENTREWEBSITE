@@ -4,5 +4,5 @@
     "types": ["node"],
     "lib": ["ES2022", "DOM", "DOM.Iterable"]
   },
-  "include": ["admin", "vite.admin.config.ts"]
+  "include": ["admin", "src/vite-env.d.ts", "vite.admin.config.ts"]
 }
