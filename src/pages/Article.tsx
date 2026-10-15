@@ -61,9 +61,9 @@ export default function Article({ slug }: { slug: string }) {
               <dl className="enter enter-4 mt-8 flex flex-wrap gap-x-8 gap-y-3 text-sm">
                 {[
                   ["Written by", a.author],
-                  ["Clinically reviewed by", a.reviewer],
-                  ["Published", a.published],
-                  ["Last updated", a.lastmod],
+                  ["Clinically reviewed by", a.status === "reviewed" ? a.reviewer : null],
+                  ["Published", a.status === "reviewed" ? a.published : null],
+                  ["Last updated", a.status === "reviewed" ? a.lastmod : null],
                   [
                     "Reading time",
                     a.readingTimeMinutes
@@ -99,8 +99,9 @@ export default function Article({ slug }: { slug: string }) {
               className="mb-10 rounded-[10px] border border-[#ecd9b4] bg-[#fdf6e9] px-5 py-4 text-[0.92rem] text-[#5c4a26]"
             >
               <strong>Draft — clinician review required.</strong> This content
-              is a design draft, not clinical advice, and is excluded from
-              production builds until reviewed.
+              is visible for review. It has not been clinically approved and
+              should not be used as clinical advice. Reviewer and publication
+              date still need to be supplied.
             </p>
           )}
         </div>

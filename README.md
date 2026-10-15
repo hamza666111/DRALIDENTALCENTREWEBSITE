@@ -14,13 +14,13 @@ npm run build
 npm run preview
 ```
 
-`npm run build` produces `dist/`, including an HTML document for every configured route, sitemap/robots, and `404.html`. Rebuild whenever content or environment settings change. Development includes draft articles; production does not publish them until their existing review status is changed.
+`npm run build` produces `dist/`, including an HTML document for every configured route, sitemap/robots, and `404.html`. Rebuild whenever content or environment settings change. Draft articles are visible in production as clearly labelled previews, including their own pages. They remain `noindex` and out of the sitemap until reviewed.
 
 ## Pages
 
 Home, Services (all 11 original treatments), reusable treatment details, Our Work, Reviews, Team, About, International Clients, Videos, Blog/article template, Contact, and existing Privacy/Accessibility pages. Navigation places International Clients then Videos immediately after About.
 
-Responsive layout uses the approved teal/white editorial visual system, compact mobile cards, a mobile menu and Call / WhatsApp / Book bar with safe-area spacing. Empty cases, reviews, videos and articles have honest empty states. No fictional patient reviews, outcomes or videos have been added.
+Responsive layout uses the approved teal/white editorial visual system, compact mobile cards, a mobile menu and Call / WhatsApp / Book bar with safe-area spacing. The homepage now shows a content checklist and visible placeholders for missing reviews and cases. Empty video collections have an honest empty state. No fictional patient reviews, outcomes or videos have been added.
 
 ## Editing existing content
 

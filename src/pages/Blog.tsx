@@ -44,8 +44,8 @@ export default function Blog() {
       <PageIntro
         eyebrow="Oral-care journal"
         title="Clear answers for a healthier smile."
-        intro="Practical advice and clear answers to help you look after your smile. Articles are published after clinical review."
-        directAnswer="The DADC Dental Journal provides evidence-based, clinically reviewed guides on preventive dentistry, treatment expectations, and transparent procedure costs. Authored and vetted by clinical professionals to help patients make informed decisions."
+        intro="Explore our oral-care articles. Drafts are visible for review and clearly labelled until clinical approval."
+        directAnswer="The DADC Dental Journal includes draft guides on dental visits, treatment estimates, daily oral care and whitening. Drafts require clinical review before publication."
         media={
           <div className="group arch-tl overflow-hidden bg-pale">
             <img
@@ -62,6 +62,11 @@ export default function Blog() {
 
       <section className="py-12 md:py-16" aria-labelledby="articles-title">
         <div className="shell">
+          {all.some((a) => a.status === "draft") && (
+            <p role="note" className="mb-8 rounded-[10px] border border-[#ecd9b4] bg-[#fdf6e9] px-5 py-4 text-[0.92rem] text-[#5c4a26]">
+              <strong>Content preview:</strong> Draft articles are available to review, but their clinical content and publication details still need approval.
+            </p>
+          )}
           <h2 id="articles-title" className="sr-only">
             Articles
           </h2>
@@ -187,7 +192,7 @@ export default function Blog() {
                     <p className="mt-4 text-muted">{featured.excerpt}</p>
                     <div className="mt-4 flex items-center justify-between text-xs text-muted">
                       <span>By {featured.author || "DADC Clinical Team"}</span>
-                      {featured.published && <span>{featured.published}</span>}
+                      {featured.status === "reviewed" && featured.published && <span>{featured.published}</span>}
                     </div>
                     <span className="text-link mt-4" aria-hidden>
                       Read article{" "}

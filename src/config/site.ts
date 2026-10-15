@@ -1271,9 +1271,9 @@ export const articles: Article[] = [
     imageHeight: 900,
     status: "draft",
     author: "DADC Clinical Team",
-    reviewer: "Clinical Director",
-    published: "2026-03-20",
-    lastmod: "2026-04-01",
+    reviewer: null,
+    published: null,
+    lastmod: null,
     readingTimeMinutes: 4,
     keywords: [
       "first dental visit",
@@ -1295,9 +1295,9 @@ export const articles: Article[] = [
     imageHeight: 750,
     status: "draft",
     author: "DADC Clinical Team",
-    reviewer: "Clinical Director",
-    published: "2026-03-22",
-    lastmod: "2026-04-01",
+    reviewer: null,
+    published: null,
+    lastmod: null,
     readingTimeMinutes: 5,
     keywords: [
       "dental treatment estimate",
@@ -1319,9 +1319,9 @@ export const articles: Article[] = [
     imageHeight: 900,
     status: "draft",
     author: "DADC Clinical Team",
-    reviewer: "Clinical Director",
-    published: "2026-03-25",
-    lastmod: "2026-04-01",
+    reviewer: null,
+    published: null,
+    lastmod: null,
     readingTimeMinutes: 4,
     keywords: [
       "everyday oral care",
@@ -1343,9 +1343,9 @@ export const articles: Article[] = [
     imageHeight: 900,
     status: "draft",
     author: "DADC Clinical Team",
-    reviewer: "Clinical Director",
-    published: "2026-03-28",
-    lastmod: "2026-04-01",
+    reviewer: null,
+    published: null,
+    lastmod: null,
     readingTimeMinutes: 5,
     keywords: [
       "teeth whitening questions",
@@ -1398,8 +1398,8 @@ export const integrations = {
 }
 
 /**
- * Draft clinical content is visible while developing so it can be reviewed,
- * and excluded from production builds unless explicitly enabled.
+ * Development-only placeholder clinician profiles. Article drafts are shown
+ * in every build with review labels and noindex on their detail pages.
  */
 export const showDrafts: boolean = import.meta.env?.DEV === true
 

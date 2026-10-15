@@ -358,7 +358,7 @@ export const renderPaths = () => [
   ...services.map((s) => `/services/${s.slug}/`),
   ...Object.keys(slugAliases).map((slug) => `/services/${slug}/`),
   ...articles
-    .filter((a) => a.status === "reviewed" && articleBodies[a.slug])
+    .filter((a) => articleBodies[a.slug])
     .map((a) => `/blog/${a.slug}/`),
   ...publishedVideos().map((v) => `/videos/${v.slug}/`),
 ]

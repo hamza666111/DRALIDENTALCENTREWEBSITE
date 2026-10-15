@@ -25,6 +25,7 @@ import {
 } from "../config/site"
 import { Link } from "../lib/router"
 import { visibleArticles } from "../lib/articles"
+import ContentStatus from "../components/ContentStatus"
 import { publishedClinicians } from "../lib/clinicians"
 import { srcSet } from "../lib/images"
 import "./home.css"
@@ -179,6 +180,7 @@ export default function Home() {
           </figure>
         </div>
       </section>
+      <ContentStatus />
       <section
         className="home-location"
         aria-label="Clinic location and opening hours"
@@ -503,7 +505,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      {(reviews.length > 0 || consentedCases.length > 0) && (
         <section className="home-section" aria-labelledby="stories-title">
           <div className="home-shell">
             <p className="eyebrow">Patient stories</p>
@@ -533,6 +534,13 @@ export default function Home() {
                   </figcaption>
                 </figure>
               ))}
+              {reviews.length === 0 && (
+                <article>
+                  <h3 className="font-serif text-xl">Patient reviews to add</h3>
+                  <p className="mt-2">No genuine patient reviews are on the website yet. Add reviews with permission and their original source.</p>
+                  <Link to="/reviews/" className="text-link mt-4 inline-flex">View review page →</Link>
+                </article>
+              )}
               {consentedCases.map((c) => (
                 <article key={c.title}>
                   <h3>{c.title}</h3>
@@ -553,6 +561,13 @@ export default function Home() {
                   </p>
                 </article>
               ))}
+              {consentedCases.length === 0 && (
+                <article>
+                  <h3 className="font-serif text-xl">Treatment cases to add</h3>
+                  <p className="mt-2">No consented before-and-after cases are on the website yet. Add real images, treatment context and follow-up details.</p>
+                  <Link to="/work/" className="text-link mt-4 inline-flex">View case page →</Link>
+                </article>
+              )}
             </div>
             {reviews.length > 0 && (
               <Link to="/reviews/" className="text-link">
@@ -561,8 +576,7 @@ export default function Home() {
             )}
           </div>
         </section>
-      )}
-      {articles.length > 0 && (
+
         <section
           className="home-section home-journal"
           aria-labelledby="journal-title"
@@ -586,7 +600,7 @@ export default function Home() {
             </div>
           </div>
         </section>
-      )}
+
       <section className="home-final-cta" aria-label="Book a visit">
         <div className="home-shell">
           <div>

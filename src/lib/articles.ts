@@ -1,7 +1,6 @@
-import { articles, showDrafts } from "../config/site"
+import { articles } from "../config/site"
 
-/** Articles visible in this build: drafts are excluded from production. */
-export const visibleArticles = () =>
-  articles.filter((a) => a.status === "reviewed" || showDrafts)
+/** Show draft content for review; individual draft pages remain noindex. */
+export const visibleArticles = () => articles
 export const findVisibleArticle = (slug: string) =>
   visibleArticles().find((a) => a.slug === slug)
