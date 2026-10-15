@@ -57,7 +57,7 @@ const ChatLauncher = forwardRef<HTMLButtonElement, Props>(function ChatLauncher(
       aria-hidden={hidden || undefined}
       tabIndex={hidden ? -1 : 0}
       className={`group fixed z-[35] flex items-center justify-center rounded-full p-0.5 transition-[opacity,transform] duration-150 active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action
-        bottom-[calc(144px+env(safe-area-inset-bottom))] right-4 min-[1200px]:bottom-[94px] min-[1200px]:right-6 ${
+        bottom-[calc(88px+env(safe-area-inset-bottom))] right-4 min-[1200px]:bottom-[94px] min-[1200px]:right-6 ${
           hidden ? "pointer-events-none opacity-0" : "opacity-100"
         }`}
     >

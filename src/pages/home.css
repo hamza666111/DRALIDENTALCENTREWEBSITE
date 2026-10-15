@@ -148,10 +148,6 @@
   .home-booking-visible button[aria-label="Open DADC assistant"] { display: none; }
 }
 @media (max-width: 1199px) {
-  body:has(.home-page) aside[aria-label="WhatsApp quick contact"] { display: none; }
-  /* Keep the existing assistant available in the header, clear of page controls. */
-  body:has(.home-page) button[aria-label="Open DADC assistant"] { top: 9px; right: 76px; bottom: auto; z-index: 45; min-width: 44px; min-height: 48px; }
-  body:has(.home-page) button[aria-label="Open DADC assistant"] picture img { width: 36px; }
   .home-shell { width: calc(100% - 48px); }
   .home-section { padding-block: 48px; }
   .home-hero-grid { gap: 24px; }
@@ -235,12 +231,6 @@
   .footer-group summary::after { display: inline; }
   .site-footer .grid-layout > div:last-child { font-size: .9rem; }
   .site-footer > .shell { padding-bottom: 30px; }
-}
-@media (min-width: 768px) and (max-width: 1023px) {
-  body:has(.home-page) button[aria-label="Open DADC assistant"] { right: 88px; }
-}
-@media (min-width: 1024px) and (max-width: 1199px) {
-  body:has(.home-page) button[aria-label="Open DADC assistant"] { right: 104px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .home-treatment-card { transition: none; }

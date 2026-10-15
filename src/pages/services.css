@@ -113,9 +113,6 @@
   .services-estimate-grid article:nth-child(3) { border-left: 0; padding-left: 0; }
   .services-visit-grid { gap: 30px; }
   .services-visit dl { grid-template-columns: 1fr; gap: 16px; }
-  body:has(.services-page) aside[aria-label="WhatsApp quick contact"] { display: none; }
-  body:has(.services-page) button[aria-label="Open DADC assistant"] { top: 9px; right: 76px; bottom: auto; z-index: 45; min-width: 44px; min-height: 48px; }
-  body:has(.services-page) button[aria-label="Open DADC assistant"] picture img { width: 36px; }
 }
 @media (max-width: 767px) {
   .services-shell { width: calc(100% - 40px); }
@@ -162,12 +159,6 @@
   .services-summary { font-size: .87rem; margin-top: 9px; }
   .services-inclusions summary { font-size: .8rem; }
   .services-card .services-card-book { font-size: .77rem; padding-inline: 7px; }
-}
-@media (min-width: 768px) and (max-width: 1023px) {
-  body:has(.services-page) button[aria-label="Open DADC assistant"] { right: 88px; }
-}
-@media (min-width: 1024px) and (max-width: 1199px) {
-  body:has(.services-page) button[aria-label="Open DADC assistant"] { right: 104px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .services-card, .services-filters button { transition: none; }
