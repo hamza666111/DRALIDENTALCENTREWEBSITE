@@ -1,0 +1,249 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-canvas: #f6f8f7;
+  --color-surface: #ffffff;
+  --color-pale: #e8f3f6;
+  --color-ink: #111719;
+  --color-muted: #526169;
+  --color-line: #d6e0e3;
+  --color-brand: #0788b8;
+  --color-action: #006b91;
+  --color-action-hover: #005674;
+  --color-night: #111b1f;
+  --font-serif: 'Instrument Serif', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --radius-card: 12px;
+  --radius-control: 8px;
+}
+
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+}
+body {
+  margin: 0;
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+#root {
+  width: 100%;
+  min-width: 0;
+}
+@media (min-width: 768px) {
+  body { font-size: 18px; }
+}
+/* Space reserved for the mobile booking bar */
+@media (max-width: 1199px) {
+  body { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
+}
+
+@layer components {
+  .shell {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1600px;
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
+  @media (min-width: 768px) { .shell { padding-inline: 32px; } }
+  @media (min-width: 1024px) { .shell { padding-inline: 48px; } }
+
+  .grid-layout {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: 16px;
+  }
+  @media (min-width: 768px) { .grid-layout { grid-template-columns: repeat(8, minmax(0, 1fr)); column-gap: 24px; } }
+  @media (min-width: 1024px) { .grid-layout { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 32px; } }
+
+  .display {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    line-height: 1.02;
+    font-size: clamp(2.5rem, 1.6rem + 3.6vw, 5rem);
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+  .h2 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.08;
+    font-size: clamp(2rem, 1.5rem + 1.9vw, 3.25rem);
+    overflow-wrap: break-word;
+  }
+  .h3 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    line-height: 1.15;
+    font-size: clamp(1.5rem, 1.3rem + 0.6vw, 1.875rem);
+    overflow-wrap: break-word;
+  }
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-brand);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    min-height: 48px;
+    padding: 0.7rem 1.4rem;
+    border-radius: var(--radius-control);
+    font-weight: 600;
+    font-size: 0.95rem;
+    line-height: 1.2;
+    text-decoration: none;
+    transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease, transform 120ms ease;
+    cursor: pointer;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary { background: var(--color-action); color: #fff; }
+  .btn-primary:hover { background: var(--color-action-hover); }
+  .btn-secondary { background: var(--color-surface); color: var(--color-action); border: 1px solid var(--color-action); }
+  .btn-secondary:hover { background: var(--color-pale); color: var(--color-action-hover); }
+  .btn-light { background: #fff; color: var(--color-action); }
+  .btn-light:hover { background: var(--color-pale); }
+
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 44px;
+    color: var(--color-action);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+  }
+  .text-link:hover { color: var(--color-action-hover); text-decoration: underline; text-underline-offset: 4px; }
+  .text-link svg, .arrow-move { transition: transform 160ms ease; }
+  .text-link:hover svg, .group:hover .arrow-move, .group:focus-visible .arrow-move { transform: translateX(4px); }
+
+  :focus-visible { outline: 2px solid var(--color-action); outline-offset: 3px; border-radius: 4px; }
+
+  .zoom-img { transition: transform 600ms cubic-bezier(.2,.7,.2,1); }
+  .group:hover .zoom-img { transform: scale(1.025); }
+
+  .arch-tl { border-top-left-radius: 55% 85%; }
+  .arch-top { border-top-left-radius: 50% 40%; border-top-right-radius: 50% 40%; }
+}
+
+.img-failed { visibility: hidden; }
+
+/* Clinician introduction: one-time sequence. Hidden states only apply once JS has
+   marked the page reveal-ready; content is always in the DOM and laid out. */
+.reveal-ready .intro-seq [data-step] {
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 320ms ease, transform 320ms cubic-bezier(.2,.7,.2,1);
+  transition-delay: var(--d, 0ms);
+}
+.reveal-ready .intro-seq [data-portrait] { transform: translateY(8px); transition-duration: 450ms; }
+/* "Typed" name: a stepped left-to-right sweep over the real text. No DOM changes, no cursor. */
+.reveal-ready .intro-seq [data-type] {
+  clip-path: inset(0 100% 0 0);
+  transform: none;
+  transition: opacity 120ms ease, clip-path 450ms steps(18, end);
+  transition-delay: var(--d, 0ms);
+}
+.reveal-ready .intro-seq.is-visible [data-step] { opacity: 1; transform: none; }
+.reveal-ready .intro-seq.is-visible [data-type] { clip-path: inset(0 -2% 0 0); }
+html[dir='rtl'].reveal-ready .intro-seq [data-type] { clip-path: inset(0 0 0 100%); }
+
+/* Chat */
+@keyframes chat-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@keyframes chat-out { from { opacity: 1; transform: none; } to { opacity: 0; transform: translateY(10px); } }
+.chat-in { animation: chat-in 200ms cubic-bezier(.2,.7,.2,1) both; }
+.chat-out { animation: chat-out 190ms ease-in both; }
+@keyframes chat-dot { 0%, 80%, 100% { opacity: .3; } 40% { opacity: 1; } }
+.chat-dot { animation: chat-dot 1.2s ease-in-out infinite; }
+/* While chat is open on small screens, hide the booking bar; WhatsApp stays inside the chat. */
+@media (max-width: 639px) { html.chat-open .booking-bar { display: none; } }
+
+/* Mascot greeting (fallback for flattened artwork): two slow sways over ~1.6s, then ~6s rest.
+   Transform-only, at most ±2deg and 2px. */
+@keyframes mascot-greet {
+  0%, 22%, 100% { transform: none; }
+  5% { transform: translateY(-2px) rotate(2deg); }
+  10.5% { transform: translateY(0) rotate(-2deg); }
+  16% { transform: translateY(-2px) rotate(2deg); }
+  20% { transform: rotate(-1deg); }
+}
+.mascot-greet { transform-origin: 50% 95%; animation: mascot-greet 7.6s ease-in-out 2s infinite; }
+.mascot-paused { animation-play-state: paused; }
+
+/* Mascot subtle floating shadow for prominence against light and white surfaces */
+.mascot-shadow {
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.12)) drop-shadow(0 6px 14px rgba(17, 23, 25, 0.18));
+  transition: filter 200ms ease;
+}
+.group:hover .mascot-shadow,
+.group:focus-visible .mascot-shadow {
+  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.16)) drop-shadow(0 10px 20px rgba(17, 23, 25, 0.22));
+}
+
+/* Motion */
+@keyframes enter {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+.enter { animation: enter 450ms cubic-bezier(.2,.7,.2,1) both; }
+.enter-2 { animation-delay: 80ms; }
+.enter-3 { animation-delay: 160ms; }
+.enter-4 { animation-delay: 240ms; }
+
+.reveal-ready .reveal { opacity: 0; transform: translateY(16px); transition: opacity 600ms ease, transform 600ms cubic-bezier(.2,.7,.2,1); }
+.reveal-ready .reveal.is-visible { opacity: 1; transform: none; }
+
+/* Subtle floating animation for team cards */
+@keyframes float-subtle-1 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-7px); }
+}
+@keyframes float-subtle-2 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(6px); }
+}
+@keyframes float-subtle-3 {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-float-1 {
+  animation: float-subtle-1 5.4s ease-in-out infinite;
+}
+.animate-float-2 {
+  animation: float-subtle-2 6.2s ease-in-out infinite;
+}
+.animate-float-3 {
+  animation: float-subtle-3 5.8s ease-in-out 1.2s infinite;
+}
+
+.animate-float-1:hover,
+.animate-float-2:hover,
+.animate-float-3:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 1ms !important; animation-delay: 0ms !important; transition-duration: 1ms !important; }
+  .reveal-ready .reveal { opacity: 1; transform: none; }
+  .group:hover .zoom-img, .text-link:hover svg, .group:hover .arrow-move { transform: none; }
+  .chat-dot { animation: none !important; opacity: .7; }
+  .mascot-greet { animation: none !important; }
+  .animate-float-1, .animate-float-2, .animate-float-3 { animation: none !important; }
+  .reveal-ready .intro-seq [data-step] { opacity: 1 !important; transform: none !important; clip-path: none !important; }
+}
