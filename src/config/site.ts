@@ -85,6 +85,10 @@ export const clinic: ClinicConfig = {
   },
 }
 
+export const clinicAddress = [clinic.address, clinic.city, clinic.postcode]
+  .filter(Boolean)
+  .join(", ")
+
 export const pricing = {
   /** ISO currency code, e.g. 'MYR' or 'USD'. null until confirmed. */
   currency: null as string | null,

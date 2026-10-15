@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { createPortal } from "react-dom"
-import { clinic, navItems } from "../config/site"
+import { clinic, clinicAddress, navItems } from "../config/site"
 import { isActive, Link, useRouter } from "../lib/router"
 import { Close, Clock, Menu, Pin } from "./Icons"
 import Logo from "./Logo"
@@ -76,7 +76,7 @@ export default function SiteHeader() {
         <div className="site-header-top">
           <span>
             <Pin size={12} />
-            {clinic.city}
+            {clinicAddress || clinic.city}
           </span>
           {clinic.openingHours?.map((h) => (
             <span key={h.days}>

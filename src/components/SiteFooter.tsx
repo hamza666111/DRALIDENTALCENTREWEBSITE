@@ -1,5 +1,5 @@
 import { useEffect, useRef, type ReactNode } from "react"
-import { clinic, navItems, services } from "../config/site"
+import { clinic, clinicAddress, navItems, services } from "../config/site"
 import { Link } from "../lib/router"
 import { buildWhatsAppUrl } from "../lib/whatsapp"
 import ArchLine from "./ArchLine"
@@ -34,9 +34,6 @@ function FooterGroup({
 }
 
 export default function SiteFooter() {
-  const address = [clinic.address, clinic.city, clinic.postcode]
-    .filter(Boolean)
-    .join(", ")
   const linkCls =
     "inline-flex min-h-[36px] items-center text-[#c9d4d8] hover:text-white hover:underline"
   return (
@@ -141,22 +138,30 @@ export default function SiteFooter() {
           <FooterGroup title="Visit us">
             <div>
               <ul className="space-y-3">
-                <li className="flex gap-3">
-                  <Pin size={18} className="mt-1 shrink-0 text-white/80" />
-                  {address ? (
+                <li>
+                  {clinicAddress && clinic.mapUrl ? (
                     <a
-                      href={
-                        clinic.mapUrl ||
-                        "https://maps.app.goo.gl/kkKaiHisnZZbzoZ7A"
-                      }
+                      href={clinic.mapUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="underline decoration-line transition-colors duration-150 hover:text-white hover:decoration-white"
+                      className="group inline-flex min-h-[44px] items-start gap-3 rounded-[4px] transition-colors duration-150 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+                      aria-label={`Get directions to ${clinicAddress} (opens in a new tab)`}
                     >
-                      {address} ↗
+                      <Pin size={18} className="mt-1 shrink-0 text-white/80" />
+                      <span>
+                        <span className="underline decoration-line underline-offset-2 group-hover:decoration-white">
+                          {clinicAddress} ↗
+                        </span>
+                        <span className="block text-[0.78rem] text-white/65 group-hover:text-white/85">
+                          Get directions
+                        </span>
+                      </span>
                     </a>
                   ) : (
-                    <span>Address: {pending}</span>
+                    <span className="inline-flex gap-3">
+                      <Pin size={18} className="mt-1 shrink-0 text-white/80" />
+                      {clinicAddress || <>Address: {pending}</>}
+                    </span>
                   )}
                 </li>
                 <li className="flex gap-3">
